@@ -86,8 +86,7 @@ export class GildedRose {
   }
 
   private updateSellIn(i: number) {
-    if (this.items[i].name != Names.SULFURAS) {
-      this.items[i].sellIn = this.items[i].sellIn - 1;
-    }
+    if (this.items[i].name == Names.SULFURAS) return;
+    this.items[i].sellIn = this.items[i].sellIn - 1;
   }
 }
