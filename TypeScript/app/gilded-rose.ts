@@ -25,38 +25,46 @@ export class GildedRose {
 
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
-      if (
-        this.items[i].name != Names.BRIE &&
-        this.items[i].name != Names.BACKSTAGE_PASS &&
-        this.items[i].name != Names.SULFURAS &&
-        this.items[i].quality > 0
-      ) {
-        this.items[i].quality = this.items[i].quality - 1; //propiedad generica
-      } else {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1; //aged brie && backstage pass
-          if (this.items[i].name == Names.BACKSTAGE_PASS) {
-            if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1; //backstage pass
-              }
-            }
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1; //backstage pass
-              }
-            }
-          }
-        }
-      }
+      this.updateItemQuality(i);
       this.updateSellIn(i);
-      this.updateQualityOfExpired(i);
+      this.updateExpiredItemQuality(i);
     }
 
     return this.items;
   }
 
-  private updateQualityOfExpired(i: number) {
+  private updateItemQuality(i: number) {
+    if (
+      this.items[i].name != Names.BRIE &&
+      this.items[i].name != Names.BACKSTAGE_PASS &&
+      this.items[i].name != Names.SULFURAS &&
+      this.items[i].quality > 0
+    ) {
+      this.checkItemQualityUpdate(i, -1); //propiedad generica
+    } else {
+      if (this.items[i].quality < 50) {
+        this.items[i].quality = this.items[i].quality + 1; //aged brie && backstage pass
+        if (this.items[i].name == Names.BACKSTAGE_PASS) {
+          if (this.items[i].sellIn < 11) {
+            if (this.items[i].quality < 50) {
+              this.items[i].quality = this.items[i].quality + 1; //backstage pass
+            }
+          }
+          if (this.items[i].sellIn < 6) {
+            if (this.items[i].quality < 50) {
+              this.items[i].quality = this.items[i].quality + 1;
+            }
+          }
+        }
+      }
+    }
+  }
+  private checkItemQualityUpdate(i: number, delta) {
+    this.items[i].quality = this.items[i].quality + delta;
+  }
+
+  private checkUpdateQuality() {}
+  private updateExpiredItemQuality(i: number) {
     if (this.items[i].sellIn < 0) {
       if (this.items[i].name != Names.BRIE) {
         if (this.items[i].name != Names.BACKSTAGE_PASS) {
