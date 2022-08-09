@@ -7,6 +7,19 @@ function assertItemEq(actual, expected) {
   expect(actual.quality).to.be.eq(expected.quality);
 }
 
+describe("Random item tests", () => {
+  it("Random item regular scenario", () => {
+    const gildedRose = new GildedRose([new Item("Test", 20, 20)]);
+    gildedRose.updateQuality();
+    assertItemEq(gildedRose.items[0], new Item("Test", 19, 19));
+  });
+  it("Random item sellin 0", () => {
+    const gildedRose = new GildedRose([new Item("Test", 0, 10)]);
+    gildedRose.updateQuality();
+    assertItemEq(gildedRose.items[0], new Item("Test", -1, 8));
+  });
+});
+
 describe("Sulfuras tests", () => {
   it("Sulfuras inmutable", () => {
     const gildedRose = new GildedRose([new Item(Names.SULFURAS, 20, 80)]);
