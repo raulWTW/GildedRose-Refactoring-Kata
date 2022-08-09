@@ -44,18 +44,14 @@ export class GildedRose {
         this.checkItemQualityUpdate(i, -1);
     } else {
       if (this.items[i].quality < 50) {
-        this.items[i].quality = this.items[i].quality + 1; //aged brie && backstage pass
-        if (this.items[i].name == Names.BACKSTAGE_PASS) {
-          if (this.items[i].sellIn < 11) {
-            if (this.items[i].quality < 50) {
-              this.items[i].quality = this.items[i].quality + 1; //backstage pass
-            }
-          }
-          if (this.items[i].sellIn < 6) {
-            if (this.items[i].quality < 50) {
-              this.items[i].quality = this.items[i].quality + 1;
-            }
-          }
+        this.items[i].quality = this.items[i].quality + 1;
+      }
+      if (this.items[i].name == Names.BACKSTAGE_PASS) {
+        if (this.items[i].sellIn < 11) {
+          this.checkItemQualityUpdate(i, 1);
+        }
+        if (this.items[i].sellIn < 6) {
+          this.checkItemQualityUpdate(i, 1);
         }
       }
     }
