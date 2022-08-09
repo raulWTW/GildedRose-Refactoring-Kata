@@ -37,10 +37,11 @@ export class GildedRose {
     if (
       this.items[i].name != Names.BRIE &&
       this.items[i].name != Names.BACKSTAGE_PASS &&
-      this.items[i].name != Names.SULFURAS &&
-      this.items[i].quality > 0
+      this.items[i].name != Names.SULFURAS
     ) {
       this.checkItemQualityUpdate(i, -1); //propiedad generica
+      if (this.items[i].name == Names.CONJURED)
+        this.checkItemQualityUpdate(i, -1);
     } else {
       if (this.items[i].quality < 50) {
         this.items[i].quality = this.items[i].quality + 1; //aged brie && backstage pass
@@ -60,10 +61,10 @@ export class GildedRose {
     }
   }
   private checkItemQualityUpdate(i: number, delta) {
-    this.items[i].quality = this.items[i].quality + delta;
+    if (this.items[i].quality > 0 && this.items[i].quality < 50)
+      this.items[i].quality = this.items[i].quality + delta;
   }
 
-  private checkUpdateQuality() {}
   private updateExpiredItemQuality(i: number) {
     if (this.items[i].sellIn < 0) {
       if (this.items[i].name != Names.BRIE) {
