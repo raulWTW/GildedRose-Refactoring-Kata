@@ -70,6 +70,8 @@ export class GildedRose {
     if (this.items[i].sellIn >= 0) {
       return;
     }
+
+    if (this.items[i].name == Names.SULFURAS) return;
     if (this.items[i].name == Names.BRIE) {
       this.checkItemQualityUpdate(i, 1);
       return;
@@ -78,11 +80,9 @@ export class GildedRose {
       this.checkItemQualityUpdate(i, this.items[i].quality * -1);
       return;
     }
-    if (this.items[i].name != Names.SULFURAS) {
-      this.checkItemQualityUpdate(i, -1); //generica
-      if (this.items[i].name == Names.CONJURED)
-        this.checkItemQualityUpdate(i, -1);
-    }
+    if (this.items[i].name == Names.CONJURED)
+      this.checkItemQualityUpdate(i, -1);
+    this.checkItemQualityUpdate(i, -1); //generica
   }
 
   private updateSellIn(i: number) {
