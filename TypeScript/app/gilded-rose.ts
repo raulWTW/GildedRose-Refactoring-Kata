@@ -62,21 +62,22 @@ export class GildedRose {
   }
 
   private updateExpiredItemQuality(i: number) {
-    if (this.items[i].sellIn < 0) {
-      if (this.items[i].name != Names.BRIE) {
-        if (this.items[i].name != Names.BACKSTAGE_PASS) {
-          if (this.items[i].name != Names.SULFURAS) {
-            this.checkItemQualityUpdate(i, -1); //generica
-            if (this.items[i].name == Names.CONJURED)
-              this.checkItemQualityUpdate(i, -1);
-          }
-        } else {
-          this.items[i].quality = this.items[i].quality - this.items[i].quality; //backstage
+    if (this.items[i].sellIn >= 0) {
+      return;
+    }
+    if (this.items[i].name != Names.BRIE) {
+      if (this.items[i].name != Names.BACKSTAGE_PASS) {
+        if (this.items[i].name != Names.SULFURAS) {
+          this.checkItemQualityUpdate(i, -1); //generica
+          if (this.items[i].name == Names.CONJURED)
+            this.checkItemQualityUpdate(i, -1);
         }
       } else {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1;
-        }
+        this.items[i].quality = this.items[i].quality - this.items[i].quality; //backstage
+      }
+    } else {
+      if (this.items[i].quality < 50) {
+        this.items[i].quality = this.items[i].quality + 1;
       }
     }
   }
