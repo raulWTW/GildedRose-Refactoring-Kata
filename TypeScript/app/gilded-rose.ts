@@ -74,14 +74,14 @@ export class GildedRose {
       this.checkItemQualityUpdate(i, 1);
       return;
     }
-    if (this.items[i].name != Names.BACKSTAGE_PASS) {
-      if (this.items[i].name != Names.SULFURAS) {
-        this.checkItemQualityUpdate(i, -1); //generica
-        if (this.items[i].name == Names.CONJURED)
-          this.checkItemQualityUpdate(i, -1);
-      }
-    } else {
-      this.items[i].quality = this.items[i].quality - this.items[i].quality; //backstage
+    if (this.items[i].name == Names.BACKSTAGE_PASS) {
+      this.checkItemQualityUpdate(i, this.items[i].quality * -1);
+      return;
+    }
+    if (this.items[i].name != Names.SULFURAS) {
+      this.checkItemQualityUpdate(i, -1); //generica
+      if (this.items[i].name == Names.CONJURED)
+        this.checkItemQualityUpdate(i, -1);
     }
   }
 
