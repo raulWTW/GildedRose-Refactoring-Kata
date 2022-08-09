@@ -50,27 +50,30 @@ export class GildedRose {
         }
       }
       this.updateSellIn(i);
-      if (this.items[i].sellIn < 0) {
-        if (this.items[i].name != Names.BRIE) {
-          if (this.items[i].name != Names.BACKSTAGE_PASS) {
-            if (this.items[i].quality > 0) {
-              if (this.items[i].name != Names.SULFURAS) {
-                this.items[i].quality = this.items[i].quality - 1; //generica
-              }
-            }
-          } else {
-            this.items[i].quality =
-              this.items[i].quality - this.items[i].quality; //backstage
-          }
-        } else {
-          if (this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1; //aged brie
-          }
-        }
-      }
+      this.updateQualityOfExpired(i);
     }
 
     return this.items;
+  }
+
+  private updateQualityOfExpired(i: number) {
+    if (this.items[i].sellIn < 0) {
+      if (this.items[i].name != Names.BRIE) {
+        if (this.items[i].name != Names.BACKSTAGE_PASS) {
+          if (this.items[i].quality > 0) {
+            if (this.items[i].name != Names.SULFURAS) {
+              this.items[i].quality = this.items[i].quality - 1; //generica
+            }
+          }
+        } else {
+          this.items[i].quality = this.items[i].quality - this.items[i].quality; //backstage
+        }
+      } else {
+        if (this.items[i].quality < 50) {
+          this.items[i].quality = this.items[i].quality + 1;
+        }
+      }
+    }
   }
 
   private updateSellIn(i: number) {
