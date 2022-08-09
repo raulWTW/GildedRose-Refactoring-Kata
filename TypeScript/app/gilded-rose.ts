@@ -72,6 +72,8 @@ export class GildedRose {
           if (this.items[i].quality > 0) {
             if (this.items[i].name != Names.SULFURAS) {
               this.items[i].quality = this.items[i].quality - 1; //generica
+              if (this.items[i].name == Names.CONJURED)
+                this.checkItemQualityUpdate(i, -1);
             }
           }
         } else {
