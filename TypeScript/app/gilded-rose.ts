@@ -43,9 +43,7 @@ export class GildedRose {
       if (this.items[i].name == Names.CONJURED)
         this.checkItemQualityUpdate(i, -1);
     } else {
-      if (this.items[i].quality < 50) {
-        this.items[i].quality = this.items[i].quality + 1;
-      }
+      this.checkItemQualityUpdate(i, 1);
       if (this.items[i].name == Names.BACKSTAGE_PASS) {
         if (this.items[i].sellIn < 11) {
           this.checkItemQualityUpdate(i, 1);
@@ -57,7 +55,10 @@ export class GildedRose {
     }
   }
   private checkItemQualityUpdate(i: number, delta) {
-    if (this.items[i].quality > 0 && this.items[i].quality < 50)
+    if (
+      this.items[i].quality + delta >= 0 &&
+      this.items[i].quality + delta <= 50
+    )
       this.items[i].quality = this.items[i].quality + delta;
   }
 
