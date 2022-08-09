@@ -34,11 +34,7 @@ export class GildedRose {
   }
 
   private updateItemQuality(i: number) {
-    if (
-      this.items[i].name != Names.BRIE &&
-      this.items[i].name != Names.BACKSTAGE_PASS &&
-      this.items[i].name != Names.SULFURAS
-    ) {
+    if (this.doesDegrade(i)) {
       this.checkItemQualityUpdate(i, -1); //propiedad generica
       if (this.items[i].name == Names.CONJURED)
         this.checkItemQualityUpdate(i, -1);
@@ -54,6 +50,14 @@ export class GildedRose {
       }
     }
   }
+  private doesDegrade(i: number) {
+    return (
+      this.items[i].name != Names.BRIE &&
+      this.items[i].name != Names.BACKSTAGE_PASS &&
+      this.items[i].name != Names.SULFURAS
+    );
+  }
+
   private checkItemQualityUpdate(i: number, delta) {
     if (
       this.items[i].quality + delta >= 0 &&
@@ -66,20 +70,18 @@ export class GildedRose {
     if (this.items[i].sellIn >= 0) {
       return;
     }
-    if (this.items[i].name != Names.BRIE) {
-      if (this.items[i].name != Names.BACKSTAGE_PASS) {
-        if (this.items[i].name != Names.SULFURAS) {
-          this.checkItemQualityUpdate(i, -1); //generica
-          if (this.items[i].name == Names.CONJURED)
-            this.checkItemQualityUpdate(i, -1);
-        }
-      } else {
-        this.items[i].quality = this.items[i].quality - this.items[i].quality; //backstage
+    if (this.items[i].name == Names.BRIE) {
+      this.checkItemQualityUpdate(i, 1);
+      return;
+    }
+    if (this.items[i].name != Names.BACKSTAGE_PASS) {
+      if (this.items[i].name != Names.SULFURAS) {
+        this.checkItemQualityUpdate(i, -1); //generica
+        if (this.items[i].name == Names.CONJURED)
+          this.checkItemQualityUpdate(i, -1);
       }
     } else {
-      if (this.items[i].quality < 50) {
-        this.items[i].quality = this.items[i].quality + 1;
-      }
+      this.items[i].quality = this.items[i].quality - this.items[i].quality; //backstage
     }
   }
 
