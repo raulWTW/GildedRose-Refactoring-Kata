@@ -22,25 +22,9 @@ export class GildedRose {
   constructor(items = [] as Array<Item>) {
     this.items = items;
   }
-  /*
-  'Aged Brie'
-  'Backstage passes to a TAFKAL80ETC concert'
-  'Sulfuras, Hand of Ragnaros'
-  Conjured Mana Cake falta implementar
-  +5 Dexterity Vest  any item
-  "Elixir of the Mongoose"  any item 
-  updateQuality --
-  updateSellIn -- >=0
-  BaseItem 
-  */
+
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
-      // if(this.items[i].name)
-      // switch this.items[i].name{
-
-      // }
-      // this.item[i].updateQuality()
-      // this.item[i].updateSellIn()
       if (
         this.items[i].name != "Aged Brie" &&
         this.items[i].name != "Backstage passes to a TAFKAL80ETC concert" &&
@@ -67,9 +51,7 @@ export class GildedRose {
           }
         }
       }
-      if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-        this.items[i].sellIn = this.items[i].sellIn - 1; //generica
-      }
+      this.updateSellIn(i);
       if (this.items[i].sellIn < 0) {
         if (this.items[i].name != "Aged Brie") {
           if (
@@ -93,5 +75,11 @@ export class GildedRose {
     }
 
     return this.items;
+  }
+
+  private updateSellIn(i: number) {
+    if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
+      this.items[i].sellIn = this.items[i].sellIn - 1;
+    }
   }
 }

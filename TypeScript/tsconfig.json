@@ -2,17 +2,13 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "strict": true,
+    "strict": false,
     "noImplicitAny": false,
     "sourceMap": false,
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "app/*"
-      ]
+      "@/*": ["app/*"]
     }
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
