@@ -38,15 +38,16 @@ export class GildedRose {
       this.checkItemQualityUpdate(i, -1); //propiedad generica
       if (this.items[i].name == Names.CONJURED)
         this.checkItemQualityUpdate(i, -1);
-    } else {
-      this.checkItemQualityUpdate(i, 1);
-      if (this.items[i].name == Names.BACKSTAGE_PASS) {
-        if (this.items[i].sellIn < 11) {
-          this.checkItemQualityUpdate(i, 1);
-        }
-        if (this.items[i].sellIn < 6) {
-          this.checkItemQualityUpdate(i, 1);
-        }
+      return;
+    }
+
+    this.checkItemQualityUpdate(i, 1);
+    if (this.items[i].name == Names.BACKSTAGE_PASS) {
+      if (this.items[i].sellIn < 11) {
+        this.checkItemQualityUpdate(i, 1);
+      }
+      if (this.items[i].sellIn < 6) {
+        this.checkItemQualityUpdate(i, 1);
       }
     }
   }
